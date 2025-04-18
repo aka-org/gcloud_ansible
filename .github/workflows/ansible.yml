@@ -32,14 +32,15 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Set up Ansible
+      - name: Set up Ansible SSH Private Key
         run: |
-         mkdir -p $HOME/.ssh && echo "{{ secrets.SSH_PRIVATE_KEY }}" > $HOME/.ssh/id_rsa
-         chmod 600 $HOME/.ssh/id_rsa
-         source $HOME/.ansible_venv/bin/activate
-         export ANSIBLE_INVENTORY_PLUGINS="$HOME/.ansible/plugins/inventory"
+          mkdir -p $HOME/.ssh && echo "{{ secrets.SSH_PRIVATE_KEY }}" > $HOME/.ssh/id_rsa
+          chmod 600 $HOME/.ssh/id_rsa
         shell: bash
 
       - name: Run Ansible
-        run: ansible --version 
+        run: |
+          source $HOME/.ansible_venv/bin/activate
+          export ANSIBLE_INVENTORY_PLUGINS="$HOME/.ansible/plugins/inventory"
+          ansible --version 
         shell: bash
