@@ -1,11 +1,19 @@
-name: Echo Message Workflow
+name: Configure VMs
 
 on:
   workflow_dispatch:  # This allows the workflow to be triggered by the API
+  pull_request:
+    branches: [main]
 
 jobs:
-  echo:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Echo a Message
-        run: echo "Hello from the triggered workflow!"
+  configure:
+    if: github.event_name == 'pull_request'
+    uses: ./.github/workflows/ansible.yml
+    with:
+      environment: testing
+      github-runner: self-hosted
+      ansible-user: ansible
+      runner-user: github-runner
+    secrets:
+      SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      PROJECT_ID: ${{ secrets.PROJECT_ID }} 
