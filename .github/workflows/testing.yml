@@ -1,0 +1,11 @@
+name: Echo Message Workflow
+
+on:
+  workflow_dispatch:  # This allows the workflow to be triggered by the API
+
+jobs:
+  echo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo a Message
+        run: echo "Hello from the triggered workflow!"
