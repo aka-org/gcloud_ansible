@@ -1,7 +1,7 @@
 plugin: gcp_compute
 #projects:
 #  - project_id 
-auth_kind: compute
+auth_kind: serviceaccount
 scopes:
   - https://www.googleapis.com/auth/cloud-platform
 #filters:
