@@ -1,0 +1,45 @@
+name: Terraform Apply
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+      github-runner:
+        required: true
+        type: string
+      runner-user:
+        required: true
+        type: string
+      ansible-user:
+        required: true
+        type: string    
+    secrets:
+      PROJECT_ID:
+        required: true
+      SSH_PRIVATE_KEY:
+        required: true
+
+jobs:
+  run-ansible:
+    runs-on: ${{ inputs.github-runner }}
+    environment: ${{ inputs.environment }}
+    env:
+      GCP_PROJECT: ${{ secrets.PROJECT_ID }}
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Ansible
+        run: |
+         echo "{{ secrets.SSH_PRIVATE_KEY }}" > $HOME/.ssh/id_rsa
+         chmod 600 $HOME/.ssh/id_rsa
+         source $HOME/.ansible_venv/bin/activate
+         export ANSIBLE_INVENTORY_PLUGINS="$HOME/.ansible/plugins/inventory"
+        shell: bash
+
+      - name: Run Ansible
+        run: ansible --version 
+        shell: bash
