@@ -29,5 +29,5 @@ jobs:
           chmod 600 $HOME/.ssh/id_rsa
           source $HOME/.ansible_venv/bin/activate
           ansible-config dump --only-changed
-          ansible-inventory -i inventories/"${{ inputs.environment }}".yml --list
+          ansible-inventory -i inventories/${{ inputs.environment }}.yml --list
         shell: bash
