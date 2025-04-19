@@ -13,4 +13,3 @@ hostnames:
   - name
 compose:
   ansible_host: networkInterfaces[0].networkIP
-plugin: gcp_compute
