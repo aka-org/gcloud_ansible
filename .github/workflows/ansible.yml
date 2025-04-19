@@ -17,8 +17,6 @@ jobs:
   run-ansible:
     runs-on: ${{ inputs.github-runner }}
     environment: ${{ inputs.environment }}
-    env:
-      ANSIBLE_INVENTORY_PLUGINS: $HOME/.ansible/plugins/inventory
 
     steps:
       - name: Checkout repo

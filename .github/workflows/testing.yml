@@ -11,6 +11,6 @@ jobs:
     uses: ./.github/workflows/ansible.yml
     with:
       environment: testing
-      github-runner: self-hosted
+      github-runner: ansible 
     secrets:
       SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
