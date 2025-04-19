@@ -1,4 +1,4 @@
-name: Configure VMs
+name: Configure Testing VMs
 
 on:
   workflow_dispatch:  # This allows the workflow to be triggered by the API
@@ -12,7 +12,5 @@ jobs:
     with:
       environment: testing
       github-runner: self-hosted
-      runner-user: ansible
     secrets:
       SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-      PROJECT_ID: ${{ secrets.PROJECT_ID }} 

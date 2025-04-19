@@ -1,4 +1,4 @@
-name: Terraform Apply
+name: Run Ansible
 
 on:
   workflow_call:
@@ -9,12 +9,7 @@ on:
       github-runner:
         required: true
         type: string
-      runner-user:
-        required: true
-        type: string
     secrets:
-      PROJECT_ID:
-        required: true
       SSH_PRIVATE_KEY:
         required: true
 
@@ -23,7 +18,6 @@ jobs:
     runs-on: ${{ inputs.github-runner }}
     environment: ${{ inputs.environment }}
     env:
-      GCP_PROJECT: ${{ secrets.PROJECT_ID }}
       ANSIBLE_INVENTORY_PLUGINS: $HOME/.ansible/plugins/inventory
 
     steps:
@@ -35,6 +29,6 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > $HOME/.ssh/id_rsa
           chmod 600 $HOME/.ssh/id_rsa
           source $HOME/.ansible_venv/bin/activate
-          echo $ANSIBLE_INVENTORY_PLUGINS
-          ansible --version 
+          ansible-config dump --only-changed
+          ansible-inventory -i inventories/gcp.yml --list
         shell: bash

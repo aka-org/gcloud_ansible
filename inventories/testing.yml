@@ -1,0 +1,16 @@
+plugin: gcp_compute
+projects:
+  - gcloud-infra-13042025
+auth_kind: application
+scopes:
+  - https://www.googleapis.com/auth/cloud-platform
+filters:
+  - "status = RUNNING"
+  - labels.env = "testing"
+keyed_groups:
+  - key: labels.role
+hostnames:
+  - name
+compose:
+  ansible_host: networkInterfaces[0].networkIP
+plugin: gcp_compute
