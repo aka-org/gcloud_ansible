@@ -1,11 +1,13 @@
-name: Echo Message Workflow
+name: Configure Testing VMs
 
 on:
   workflow_dispatch:  # This allows the workflow to be triggered by the API
 
 jobs:
-  echo:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Echo a Message
-        run: echo "Hello from the triggered workflow!"
+  configure:
+    uses: ./.github/workflows/ansible.yml
+    with:
+      environment: testing
+      github-runner: ansible 
+    secrets:
+      SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}

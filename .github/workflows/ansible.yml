@@ -1,0 +1,32 @@
+name: Run Ansible
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+      github-runner:
+        required: true
+        type: string
+    secrets:
+      SSH_PRIVATE_KEY:
+        required: true
+
+jobs:
+  run-ansible:
+    runs-on: ${{ inputs.github-runner }}
+    environment: ${{ inputs.environment }}
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Run Ansible
+        run: |
+          mkdir -p $HOME/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > $HOME/.ssh/id_rsa
+          chmod 600 $HOME/.ssh/id_rsa
+          source $HOME/.ansible_venv/bin/activate
+          ansible-inventory -i inventories/${{ inputs.environment }}/gcp.yml --list
+        shell: bash
