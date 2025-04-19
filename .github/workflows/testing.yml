@@ -12,7 +12,7 @@ jobs:
     with:
       environment: testing
       github-runner: self-hosted
-      runner-user: github-runner
+      runner-user: ansible
     secrets:
       SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
       PROJECT_ID: ${{ secrets.PROJECT_ID }} 
