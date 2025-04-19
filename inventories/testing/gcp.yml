@@ -5,10 +5,11 @@ auth_kind: application
 scopes:
   - https://www.googleapis.com/auth/cloud-platform
 filters:
-  - "status = RUNNING"
-  - labels.env = "testing"
+  - 'status = RUNNING'
+  - 'labels.env = testing'
 keyed_groups:
   - key: labels.role
+    prefix: role
 hostnames:
   - name
 compose:
