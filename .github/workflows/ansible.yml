@@ -12,9 +12,6 @@ on:
       runner-user:
         required: true
         type: string
-      ansible-user:
-        required: true
-        type: string    
     secrets:
       PROJECT_ID:
         required: true
@@ -27,20 +24,15 @@ jobs:
     environment: ${{ inputs.environment }}
     env:
       GCP_PROJECT: ${{ secrets.PROJECT_ID }}
+      ANSIBLE_INVENTORY_PLUGINS: $HOME/.ansible/plugins/inventory
 
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Set up Ansible SSH Private Key
-        run: |
-          mkdir -p $HOME/.ssh && echo "{{ secrets.SSH_PRIVATE_KEY }}" > $HOME/.ssh/id_rsa
-          chmod 600 $HOME/.ssh/id_rsa
-        shell: bash
-
       - name: Run Ansible
         run: |
           source $HOME/.ansible_venv/bin/activate
-          export ANSIBLE_INVENTORY_PLUGINS="$HOME/.ansible/plugins/inventory"
+          echo $ANSIBLE_INVENTORY_PLUGINS
           ansible --version 
         shell: bash

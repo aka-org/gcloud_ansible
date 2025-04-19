@@ -12,7 +12,6 @@ jobs:
     with:
       environment: testing
       github-runner: self-hosted
-      ansible-user: ansible
       runner-user: github-runner
     secrets:
       SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
