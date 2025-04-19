@@ -2,12 +2,9 @@ name: Configure Testing VMs
 
 on:
   workflow_dispatch:  # This allows the workflow to be triggered by the API
-  pull_request:
-    branches: [main]
 
 jobs:
   configure:
-    if: github.event_name == 'pull_request'
     uses: ./.github/workflows/ansible.yml
     with:
       environment: testing
