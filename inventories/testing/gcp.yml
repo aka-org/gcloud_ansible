@@ -7,6 +7,7 @@ scopes:
 filters:
   - 'status = RUNNING'
   - 'labels.env = testing'
+  - 'labels.ansible_configured != true'  
 keyed_groups:
   - key: labels.role
     prefix: role
@@ -14,3 +15,5 @@ hostnames:
   - name
 compose:
   ansible_host: networkInterfaces[0].networkIP
+  zone: zone
+  project: project
