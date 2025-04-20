@@ -24,9 +24,8 @@ jobs:
 
       - name: Run Ansible
         run: |
-          mkdir -p $HOME/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > $HOME/.ssh/id_rsa
           chmod 600 $HOME/.ssh/id_rsa
           source $HOME/.ansible_venv/bin/activate
-          ansible-inventory -i inventories/${{ inputs.environment }}/gcp.yml --list
+          ansible-inventory -i inventories/${{ inputs.environment }}/gcp.yml playbook.yml 
         shell: bash
