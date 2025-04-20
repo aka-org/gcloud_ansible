@@ -1,0 +1,7 @@
+---
+- name: Mark GCE instance as configured by Ansible 
+  hosts: all
+  become: false
+  gather_facts: false
+  roles:
+    - role: set_labels
